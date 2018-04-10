@@ -1,0 +1,52 @@
+﻿<Window x:Name="WindowMain" x:Class="HduRemoteLab.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HduRemoteLab"
+        mc:Ignorable="d"
+        Title="RemoteLab" Height="407.333" Width="634" Topmost="True" WindowStyle="ToolWindow" Closed="Window_Closed" ResizeMode="NoResize" Icon="hdu——logo.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="TextTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="远程实验平台" VerticalAlignment="Top" RenderTransformOrigin="2.657,6.826" Margin="15,9,0,0" Height="39" Width="144" FontSize="22" Grid.ColumnSpan="2"/>
+        <ListBox x:Name="ListLog" Height="353" VerticalAlignment="Top" HorizontalAlignment="Left" Width="360" Margin="257,9,0,0" Grid.ColumnSpan="2" />
+        <Grid x:Name="GridBasic" HorizontalAlignment="Left" Height="317" VerticalAlignment="Top" Width="239" Margin="10,37,0,0" Grid.ColumnSpan="2" d:IsHidden="True">
+            <GroupBox x:Name="GroupLogin" Header="登录" HorizontalAlignment="Left" Margin="4,4,0,-4" VerticalAlignment="Top" Height="317" Width="228">
+                <Grid x:Name="GridLogin" Margin="-2,-2,-2,-22.333" HorizontalAlignment="Left" Width="220">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="120*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BtnLogin" Content="登录" HorizontalAlignment="Left" Margin="36.667,222,0,0" VerticalAlignment="Top" Width="92" Click="BtnLogin_Click" Height="26" Grid.Column="2" RenderTransformOrigin="0.543,0.385"/>
+                    <Label x:Name="LabelID" Content="学生学号/教师工号" HorizontalAlignment="Left" Margin="25.667,37,0,0" VerticalAlignment="Top" Width="144" Grid.Column="2" Height="29" FontSize="14" RenderTransformOrigin="0.407,0.931"/>
+                    <TextBox x:Name="TextID" HorizontalAlignment="Left" Height="25" Margin="25.667,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" VerticalContentAlignment="Center" Grid.Column="2" />
+                    <Label x:Name="LabelPwd" Content="密码" HorizontalAlignment="Left" Margin="25.667,123,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.686,0.487" Grid.Column="2" Width="43" FontSize="14"/>
+                    <PasswordBox x:Name="PwdBoxPwd" HorizontalAlignment="Left" Margin="25.667,157,0,0" VerticalAlignment="Top" Width="120" Height="27" Grid.Column="2"/>
+                    <Grid Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Grid x:Name="GridHigh" HorizontalAlignment="Left" Height="340" Margin="20,36,0,0" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2">
+            <GroupBox x:Name="GroupAcount" Header="账户操作" HorizontalAlignment="Left" Height="90" Margin="-9,10,0,0" VerticalAlignment="Top" Width="239" >
+                <Grid x:Name="GridAccount" HorizontalAlignment="Left" Margin="-2,-9,0,0" Width="219" Height="70" VerticalAlignment="Top">
+                    <TextBlock x:Name="TextAccount" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.818"><Run Text="当前"/><Run Text="账户名称"/></TextBlock>
+                    <Button x:Name="BtnPwd"    Content="修改密码" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="89" Height="20" RenderTransformOrigin="0.461,1.267" Click="BtnPwd_Click"/>
+                    <Button x:Name="BtnAccount" Content="切换账户" HorizontalAlignment="Left" Margin="117,36,0,0" VerticalAlignment="Top" Width="92" RenderTransformOrigin="0.493,0.8" Click="BtnAccount_Click"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox x:Name="GroupOperate" Header="高级操作" HorizontalAlignment="Left" Height="217" Margin="-7,113,0,0" VerticalAlignment="Top" Width="237">
+                <Grid x:Name="GridOperate" HorizontalAlignment="Left" Height="181" Margin="0,10,-2.333,0" VerticalAlignment="Top" Width="227">
+                    <Button x:Name="BtnLogView" Content="日志查看" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="59,23,0,0" Height="31" Click="BtnLogView_Click"/>
+                    <Button x:Name="BtnOperate" Content="远程操作" HorizontalAlignment="Left" Margin="59,76,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.178,0.8" Height="29" Click="BtnOperate_Click"/>
+                    <Button x:Name="BtnUpdate" Content="远程升级" HorizontalAlignment="Left" Margin="59,129,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BtnUpdate_Click"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+    </Grid>
+</Window>
