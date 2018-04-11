@@ -84,9 +84,6 @@
     <Compile Include="M1-PwdWindow.xaml.cs">
       <DependentUpon>M1-PwdWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="M3-UpdateWindow.xaml.cs">
-      <DependentUpon>M3-UpdateWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="M0-MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -105,10 +102,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="M1-PwdWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="M3-UpdateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

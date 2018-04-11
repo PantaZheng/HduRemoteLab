@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:HduRemoteLab"
         mc:Ignorable="d"
         Title="RemoteLab" Height="407.333" Width="634" Topmost="True" WindowStyle="ToolWindow" Closed="Window_Closed" ResizeMode="NoResize" Icon="hdu——logo.ico">
-    <Grid>
+    <Grid x:Name="GridMain">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
@@ -41,9 +41,8 @@
             </GroupBox>
             <GroupBox x:Name="GroupOperate" Header="高级操作" HorizontalAlignment="Left" Height="217" Margin="-7,113,0,0" VerticalAlignment="Top" Width="237">
                 <Grid x:Name="GridOperate" HorizontalAlignment="Left" Height="181" Margin="0,10,-2.333,0" VerticalAlignment="Top" Width="227">
-                    <Button x:Name="BtnLogView" Content="日志查看" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="59,23,0,0" Height="31" Click="BtnLogView_Click"/>
-                    <Button x:Name="BtnOperate" Content="远程操作" HorizontalAlignment="Left" Margin="59,76,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.178,0.8" Height="29" Click="BtnOperate_Click"/>
-                    <Button x:Name="BtnUpdate" Content="远程升级" HorizontalAlignment="Left" Margin="59,129,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BtnUpdate_Click"/>
+                    <Button x:Name="BtnLogView" Content="日志查看" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="59,37,0,0" Height="31" Click="BtnLogView_Click"/>
+                    <Button x:Name="BtnOperate" Content="远程操作" HorizontalAlignment="Left" Margin="59,119,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.178,0.8" Height="29" Click="BtnOperate_Click"/>
                 </Grid>
             </GroupBox>
         </Grid>

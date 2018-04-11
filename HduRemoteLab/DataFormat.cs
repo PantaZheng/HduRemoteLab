@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Windows;
+using System.Collections.Generic;
 
 namespace HduRemoteLab
 {
@@ -13,7 +14,7 @@ namespace HduRemoteLab
         public string id { get; set; }
         public string password { get; set; }
     }
-    public class IdNewpwd
+    public class IdNewPwd
     {
         public string id { get; set; }
         public string new_password { get; set; }
@@ -30,13 +31,13 @@ namespace HduRemoteLab
     //modbus交互
     public class Modbus
     {
-        public string function_id { get; set; }
+        public string slave { get; set; }
+        public string function_code { get; set; }
         public string starting_address { get; set; }
         public string quantity_x { get; set; }
         public string output_value { get; set; }
-
     }
-    //log交互
+    //日志获取
     public class LogDeviceModbus
     {
         public string log_id { get; set; }
@@ -48,11 +49,32 @@ namespace HduRemoteLab
         public string device { get; set; }
         public string docement_name { get; set; }
     }
+
+    //控制器信息
+    public class Slave
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public string state { get; set; }
+        public List<string> experiments{ get; set; }
+    }
+    public class ExperimentData
+    {
+        public List<Slave> slaves { get; set; }
+    }
+    //远程控制信息
+    public class OperateData
+    {
+        public string log_id { get; set; }
+        public string slave_anme { get; set; }
+        public string expriment_name { get; set; }
+        public Modbus modbus;
+    }
     //返回信息
     public class MesData
     {
         public string code { get; set; }
-        public JObject mes { get; set; }
+        public JObject message { get; set; }
     }
     public class BackMes
     {

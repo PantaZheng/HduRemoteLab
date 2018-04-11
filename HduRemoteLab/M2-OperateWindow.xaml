@@ -5,28 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HduRemoteLab"
         mc:Ignorable="d"
-        Title="远程操作界面" Height="450" Width="800" Icon="hdu——logo.ico" ResizeMode="NoResize">
+        Title="远程操作界面" Height="450" Width="800" Icon="hdu——logo.ico" ResizeMode="NoResize" Closed="WindowsOperate_Closed">
     <Grid>
         <ListBox x:Name="ListResult" HorizontalAlignment="Left" Height="401" Margin="337,10,0,0" VerticalAlignment="Top" Width="446"/>
-        <GroupBox x:Name="GroupChoice" Header="实验选择" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="322"/>
-        <Grid x:Name="GridChoice" HorizontalAlignment="Left" Height="86" Margin="22,24,0,0" VerticalAlignment="Top" Width="299" RenderTransformOrigin="0.449,0.371">
-            <Label x:Name="LabelController" Content="控制器选择" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="ComboController" HorizontalAlignment="Left" Margin="157,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" RenderTransformOrigin="0.492,3.109"/>
-            <Label x:Name="LabelExperiment" Content="实验选择" HorizontalAlignment="Left" Margin="26,48,0,0" VerticalAlignment="Top"/>
-            <ComboBox x:Name="ComboExperiment" HorizontalAlignment="Left" Margin="157,51,0,0" VerticalAlignment="Top" Width="120"/>
-        </Grid>
-        <GroupBox x:Name="GroupOperate" Header="实验操作" HorizontalAlignment="Left" Height="297" Margin="10,115,0,0" VerticalAlignment="Top" Width="322">
-            <Grid x:Name="GridOperate" HorizontalAlignment="Left" Height="267" Margin="10,10,-2,-1.667" VerticalAlignment="Top" Width="302">
-                <Button x:Name="BtnLoad" Content="例程及说明下载" HorizontalAlignment="Left" Margin="89,10,0,0" VerticalAlignment="Top" Width="122"/>
-                <Label x:Name="LabelSlave" Content="从机地址" HorizontalAlignment="Left" Margin="63,43,0,0" VerticalAlignment="Top"/>
-                <TextBlock x:Name="TextSlave" HorizontalAlignment="Left" Margin="165,48,0,0" TextWrapping="Wrap" Text="Slave" VerticalAlignment="Top"/>
-                <Label x:Name="LabelFunctionCode" Content="功能码" HorizontalAlignment="Left" Margin="73,85,0,0" VerticalAlignment="Top" Width="59" RenderTransformOrigin="0.898,0.705"/>
-                <ComboBox x:Name="ComboFuctionCode" HorizontalAlignment="Left" Margin="165,90,0,0" VerticalAlignment="Top" Width="120"/>
-                <Label Content="寄存器初始地址" HorizontalAlignment="Left" Margin="27,128,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="TextStartingAddress" HorizontalAlignment="Left" Height="23" Margin="165,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label x:Name="LabelQuantityX" Content="寄存器数量或者&#xD;&#xA;          线圈数量" HorizontalAlignment="Left" Margin="27,158,0,0" VerticalAlignment="Top" Width="112"/>
-                <TextBox x:Name="TextQuantityX" HorizontalAlignment="Left" Height="23" Margin="165,173,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
-                <Button x:Name="BtnExcute" Content="执行Modbus指令" HorizontalAlignment="Left" Margin="89,219,0,0" VerticalAlignment="Top" Width="122"/>
+        <GroupBox x:Name="GroupChoice" Header="实验选择" HorizontalAlignment="Left" Height="124" Margin="10,10,0,0" VerticalAlignment="Top" Width="322">
+            <Grid x:Name="GridChoice" HorizontalAlignment="Left" Height="98" Margin="7,7,0,-3" VerticalAlignment="Top" Width="299" RenderTransformOrigin="0.449,0.371">
+                <Label x:Name="LabelController" Content="可用控制器选择" HorizontalAlignment="Left" Margin="26,36,0,0" VerticalAlignment="Top"/>
+                <ComboBox x:Name="ComboSlaves" HorizontalAlignment="Left" Margin="157,36,0,0" VerticalAlignment="Top" Width="120"  RenderTransformOrigin="0.492,3.109" SelectionChanged="ComboController_SelectionChanged"/>
+                <Label x:Name="LabelExperiment" Content="实验选择" HorizontalAlignment="Left" Margin="26,63,0,0" VerticalAlignment="Top"/>
+                <ComboBox x:Name="ComboExperiment" HorizontalAlignment="Left" Margin="157,67,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboExperiment_SelectionChanged"/>
+                <Button x:Name="BtnUpload" Content="上传实验到云端" HorizontalAlignment="Left" Margin="89,5,0,72" Width="108" Click="BtnUpload_Click" />
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="GroupOperate" Header="实验操作" HorizontalAlignment="Left" Height="273" Margin="10,139,0,0" VerticalAlignment="Top" Width="322">
+            <Grid x:Name="GridOperate" HorizontalAlignment="Left" Height="264" Margin="10,-1,-2,-11.667" VerticalAlignment="Top" Width="302">
+                <Button x:Name="BtnStop" Content="关闭远程实验" HorizontalAlignment="Left" Margin="165,51,0,0" VerticalAlignment="Top" Width="118"/>
+                <Button x:Name="BtnDownload" Content="例程及说明下载" HorizontalAlignment="Left" Margin="81,10,0,0" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.603,1.156"/>
+                <Button x:Name="BtnStart" Content="开启远程实验" HorizontalAlignment="Left" Margin="17,51,0,0" VerticalAlignment="Top" Width="122"/>
+                <Grid x:Name="GridModbus" HorizontalAlignment="Left" Height="179" Margin="17,75,0,0" VerticalAlignment="Top" Width="266">
+                    <Label x:Name="LabelFunctionCode" Content="功能码" HorizontalAlignment="Left" Margin="40,39,0,0" VerticalAlignment="Top" Width="59" RenderTransformOrigin="0.898,0.705"/>
+                    <Label x:Name="LabelSlave" Content="从机地址" HorizontalAlignment="Left" Margin="40,6,0,0" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="TextSlave" HorizontalAlignment="Left" Margin="140,10,0,0" TextWrapping="Wrap" Text="Slave" VerticalAlignment="Top"/>
+                    <Label Content="寄存器初始地址" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="BtnExcute" Content="执行Modbus指令" HorizontalAlignment="Left" Margin="72,155,0,0" VerticalAlignment="Top" Width="98"/>
+                    <ComboBox x:Name="ComboFuctionCode" HorizontalAlignment="Left" Margin="139,42,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label x:Name="LabelQuantityX" Content="寄存器数量或者&#xA;          线圈数量" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="112"/>
+                    <TextBox x:Name="TextStartingAddress" HorizontalAlignment="Left" Height="22" Margin="140,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="TextQuantityX" HorizontalAlignment="Left" Height="23" Margin="140,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+                </Grid>
             </Grid>
         </GroupBox>
 

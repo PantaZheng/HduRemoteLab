@@ -28,11 +28,13 @@ namespace HduRemoteLab
     /// </summary>
     public partial class MainWindow : Window
     {
+        public PwdWindow pwdWindow;
+        public OperateWindow operateWindow;
         public WebSocket ws;
         public String server= "localhost:80";
         public Account account;
-        public PwdWindow pwdWindow;
         public BackMes backMes;
+
         public MainWindow()
         {
             try
@@ -100,7 +102,7 @@ namespace HduRemoteLab
                 var mes = JsonConvert.DeserializeObject<MesData>(ee.Data);
                 if (mes.code == "100")
                 {
-                    account = JsonConvert.DeserializeObject<Account>(mes.mes.ToString());
+                    account = JsonConvert.DeserializeObject<Account>(mes.message.ToString());
                     Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
                      {
                          GridBasic.Visibility = Visibility.Hidden;
@@ -114,7 +116,7 @@ namespace HduRemoteLab
                 }
                 else
                 { 
-                    backMes = JsonConvert.DeserializeObject<BackMes>(mes.mes.ToString());
+                    backMes = JsonConvert.DeserializeObject<BackMes>(mes.message.ToString());
                     AppendLog("抱歉，登录错误。错误代码：" + mes.code + ",错误信息：" + backMes.message);
                 }
             };
@@ -138,11 +140,13 @@ namespace HduRemoteLab
             pwdWindow.passNewPwd += ModifyPwd;
         }
 
+
+        //修改密码委托
         private void ModifyPwd(string newPwd)
         {
             var mode = "modify";
 
-            var modifyMes = new IdNewpwd
+            var modifyMes = new IdNewPwd
             {
                 id = account.id,
                 new_password = newPwd
@@ -155,12 +159,12 @@ namespace HduRemoteLab
                 var mes = JsonConvert.DeserializeObject<MesData>(ee.Data);
                 if (mes.code == "104")
                 {
-                    backMes = JsonConvert.DeserializeObject<BackMes>(mes.mes.ToString());
+                    backMes = JsonConvert.DeserializeObject<BackMes>(mes.message.ToString());
                     AppendLog(backMes.message);
                 }
                 else
                 {
-                    backMes = JsonConvert.DeserializeObject<BackMes>(mes.mes.ToString());
+                    backMes = JsonConvert.DeserializeObject<BackMes>(mes.message.ToString());
                     AppendLog("抱歉，修改密码出错。错误代码：" + mes.code + ",错误信息：" + backMes.message);
                 }
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
@@ -194,7 +198,20 @@ namespace HduRemoteLab
 
         private void BtnOperate_Click(object sender, RoutedEventArgs e)
         {
-            
+            GridMain.IsEnabled = false;
+            operateWindow = new OperateWindow(server,account.log_id);
+            operateWindow.Topmost = true;
+            operateWindow.Show();
+            operateWindow.activateGrid += AfterOperate;
+        }
+
+        //远程操作结束委托
+        private void AfterOperate()
+        {
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                GridMain.IsEnabled = true;
+            }));
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -202,9 +219,6 @@ namespace HduRemoteLab
             Application.Current.Shutdown();
         }
 
-        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 }
