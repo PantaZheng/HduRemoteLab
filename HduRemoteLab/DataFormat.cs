@@ -56,7 +56,7 @@ namespace HduRemoteLab
         public string id { get; set; }
         public string name { get; set; }
         public string state { get; set; }
-        public List<string> experiments{ get; set; }
+        public List<string> experiments { get; set; }
     }
     public class ExperimentData
     {
@@ -70,6 +70,13 @@ namespace HduRemoteLab
         public string expriment_name { get; set; }
         public Modbus modbus;
     }
+    
+    public class FlagData
+    {
+        public string flag { get; set; }
+        public JObject data { get; set; }
+    }
+
     //返回信息
     public class MesData
     {

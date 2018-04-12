@@ -36,11 +36,16 @@ namespace HduRemoteLab
         public ExperimentData aim;
         public List<string> slaves;
         public ExperimentData experiments;
+        public FlagData flagData;
+        public OperateData operateData;
+    
 
         public OperateWindow(string server,string log_id)
         {
             this.server = server;
             this.log_id = log_id;
+            operateData.log_id = log_id;
+            GridOperate.IsEnabled = false;
             InitializeComponent();
 
             wsOperate = new WebSocket("ws://" + server + "/mode=" + mode);
@@ -53,14 +58,8 @@ namespace HduRemoteLab
 
                     Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
                     {
-                        ComboSlaves.Items.Clear();
-                        ComboExperiment.Items.Clear();
-                        for(int i=0;i<experiments.slaves.Count();i++)
-                        {
-                            ComboSlaves.Items.Add(experiments.slaves[i].name);
-                            for (int j = 0; j < experiments.slaves[i].experiments.Count(); j++)
-                                ComboExperiment.Items.Add(experiments.slaves[i].experiments[j]);
-                        }
+                        ComboSlaves.ItemsSource = experiments.slaves;
+                        ComboSlaves.DisplayMemberPath = "name";
                     }));
                 }
                 else
@@ -97,23 +96,42 @@ namespace HduRemoteLab
             }));
         }
 
-        private void ComboController_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboSlaves_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            operateData.slave_anme = ComboSlaves.SelectedValue.ToString();
+            AppendLog("选中从机为:" + operateData.slave_anme);
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                ComboExperiment.ItemsSource = experiments.slaves[ComboSlaves.SelectedIndex].experiments;
+            }));
         }
 
         private void ComboExperiment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            
+            operateData.expriment_name = ComboExperiment.SelectedValue.ToString();
+            AppendLog("选中实验为:" + operateData.expriment_name);
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                GridOperate.IsEnabled = false;
+            }));
         }
 
         private void BtnUpload_Click(object sender, RoutedEventArgs e)
         {
+            //先不实现
+        }
+
+        private void BtnDownload_Click(object sender, RoutedEventArgs e)
+        {
 
         }
+
         private void WindowsOperate_Closed(object sender, EventArgs e)
         {
             activateGrid();
         }
+
+        
     }
 }
