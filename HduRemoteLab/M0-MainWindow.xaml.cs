@@ -33,8 +33,6 @@ namespace HduRemoteLab
         public WebSocket ws;
         public String server= "localhost:80";
         public Account account;
-        public BackMes backMes;
-
         public MainWindow()
         {
             try
@@ -99,10 +97,10 @@ namespace HduRemoteLab
             var data = JsonConvert.SerializeObject(loginMes);
             ws = new WebSocket("ws://" + server + "/mode=" + mode);
             ws.OnMessage += ( s, ee)=>{ 
-                var mes = JsonConvert.DeserializeObject<MesData>(ee.Data);
-                if (mes.code == "100")
+                var recData = JsonConvert.DeserializeObject<AccountData>(ee.Data);
+                if (recData.code == "100")
                 {
-                    account = JsonConvert.DeserializeObject<Account>(mes.message.ToString());
+                    account = JsonConvert.DeserializeObject<Account>(recData.data.ToString());
                     Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
                      {
                          GridBasic.Visibility = Visibility.Hidden;
@@ -111,17 +109,16 @@ namespace HduRemoteLab
                          if (account.role != "teacher")
                              BtnLogView.IsEnabled = false;
                      }));
-                    File.WriteAllText("./config.json", data);
+                   File.WriteAllText("./config.json", data);
                     AppendLog("登录成功。当前登录账户：" + account.name);
                 }
                 else
                 { 
-                    backMes = JsonConvert.DeserializeObject<BackMes>(mes.message.ToString());
-                    AppendLog("抱歉，登录错误。错误代码：" + mes.code + ",错误信息：" + backMes.message);
+                    AppendLog("抱歉，登录错误。错误代码：" + recData.code + ",错误信息：" + recData.mes);
                 }
             };
             ws.OnClose += (s, ee) => {
-                AppendLog("服务器通讯结束!");
+                //AppendLog("服务器通讯结束!");
             };
             ws.Connect();
             ws.Send(data);
@@ -146,26 +143,20 @@ namespace HduRemoteLab
         {
             var mode = "modify";
 
-            var modifyMes = new IdNewPwd
+            var modifyMes = new IdPwd
             {
                 id = account.id,
-                new_password = newPwd
+                password = newPwd
             };
 
             var data = JsonConvert.SerializeObject(modifyMes);
 
             ws = new WebSocket("ws://" + server + "/mode=" + mode);
             ws.OnMessage += (s, ee) => { 
-                var mes = JsonConvert.DeserializeObject<MesData>(ee.Data);
-                if (mes.code == "104")
+                var recMes = JsonConvert.DeserializeObject<BasicData>(ee.Data);
+                if (recMes.code == "200")
                 {
-                    backMes = JsonConvert.DeserializeObject<BackMes>(mes.message.ToString());
-                    AppendLog(backMes.message);
-                }
-                else
-                {
-                    backMes = JsonConvert.DeserializeObject<BackMes>(mes.message.ToString());
-                    AppendLog("抱歉，修改密码出错。错误代码：" + mes.code + ",错误信息：" + backMes.message);
+                    AppendLog(recMes.mes);
                 }
                 Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
                 {
@@ -174,7 +165,7 @@ namespace HduRemoteLab
                 }));
             };
             ws.OnClose += (s, ee) => {
-                AppendLog("服务器通讯结束!");
+                //AppendLog("服务器通讯结束!");
             };
             ws.Connect();
             ws.Send(data);
@@ -188,6 +179,7 @@ namespace HduRemoteLab
             {
                 GridHigh.Visibility = Visibility.Hidden;
                 GridBasic.Visibility = Visibility.Visible;
+                ListLog.Items.Clear();
             }));
         }
 
@@ -199,7 +191,7 @@ namespace HduRemoteLab
         private void BtnOperate_Click(object sender, RoutedEventArgs e)
         {
             GridMain.IsEnabled = false;
-            operateWindow = new OperateWindow(server,account.log_id);
+            operateWindow = new OperateWindow(server,account.id);
             operateWindow.Topmost = true;
             operateWindow.Show();
             operateWindow.activateGrid += AfterOperate;
