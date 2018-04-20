@@ -17,6 +17,7 @@ using WebSocketSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Windows.Threading;
+using Microsoft.Win32;
 
 namespace HduRemoteLab
 {
@@ -38,13 +39,16 @@ namespace HduRemoteLab
         public Slaves selectSlaves;//选中的从机复杂类-接收自服务器
         public Slave selectSlave;//选中从机简单类-发送往服务器
         public string selectExperiment;//选中实验
-
+        public Docement uploadDocement;//上传文件
+        public string realWay;
         public OperateWindow(string server,string id)
         {
             this.server = server;
             this.account_id = id;
             InitializeComponent();
             GridOperate.IsEnabled = false;
+            BtnUpload.IsEnabled = false;
+            ComboExperiment.IsEnabled = false;
             mode = "info";
             wsOperate = new WebSocket("ws://" + server + "/mode=" + mode);
             wsOperate.OnMessage += (s, ee) => {
@@ -64,6 +68,7 @@ namespace HduRemoteLab
                     {
                         ComboSlaves.ItemsSource = slavesList;
                         ComboSlaves.DisplayMemberPath = "name";
+                        TextExperiment.Visibility = Visibility.Hidden;
                     }));
                 }
                 else
@@ -117,12 +122,14 @@ namespace HduRemoteLab
             {
                 experimentsList.Add(JsonConvert.DeserializeObject<Experiments>(i.ToString()));
             }
-            if (selectSlaves.user_experiment!=null)
-                experimentsList.Add(JsonConvert.DeserializeObject<Experiments>(selectSlaves.user_experiment.ToString()));
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
             {
+                ComboExperiment.IsEnabled = true;
+                ComboExperiment.Items.Clear();
                 ComboExperiment.ItemsSource = experimentsList;
                 ComboExperiment.DisplayMemberPath = "name";
+                BtnUpload.IsEnabled = true;
+              
             }));
         }
 
@@ -140,7 +147,58 @@ namespace HduRemoteLab
 
         private void BtnUpload_Click(object sender, RoutedEventArgs e)
         {
-            //上传文件，先不实现
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = "c:\\";
+            openFileDialog.Filter = "文本文件|*.*|C#文件|*.cs|所有文件|*.*";
+            openFileDialog.RestoreDirectory = true;
+            openFileDialog.FilterIndex = 1;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                realWay = openFileDialog.FileName;
+                selectExperiment = openFileDialog.SafeFileName;
+            }
+
+            AppendLog(selectExperiment);
+            mode = "operate";
+            wsOperate = new WebSocket("ws://" + server + "/mode=" + mode);
+            wsOperate.OnMessage += (s, ee) => {
+                var recData = JsonConvert.DeserializeObject<BasicData>(ee.Data);
+                if (recData.code == "400")
+                {
+                    AppendLog(recData.mes);
+                }
+                else
+                {
+                    AppendLog("错误代码：" + recData.code + ",错误信息：" + recData.mes);
+                }
+            };
+            wsOperate.OnClose += (s, ee) => {
+                // AppendLog("服务器通讯结束!");
+            };
+            wsOperate.Connect();
+            selectSlave.state = "busy";
+            uploadDocement = new Docement();
+            uploadDocement.name = selectExperiment;
+            uploadDocement.content = File.ReadAllText(realWay, Encoding.UTF8).ToString();
+            var data = new UploadData
+            {
+                id = account_id,
+                slave = selectSlave,
+                docement=uploadDocement
+            };
+            wsOperate.Send(JsonConvert.SerializeObject(data));
+             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+            {
+                ComboExperiment.Visibility = Visibility.Hidden;
+                TextExperiment.Text = selectExperiment;
+                TextExperiment.Visibility = Visibility.Visible;
+                GridChoice.IsEnabled = false;
+                GridOperate.IsEnabled = true;
+                GridModbus.IsEnabled = false;
+                BtnStop.IsEnabled = false;
+                BtnStart.IsEnabled = true;
+                BtnDownload.IsEnabled = false;
+             }));
         }
 
         private void BtnDownload_Click(object sender, RoutedEventArgs e)

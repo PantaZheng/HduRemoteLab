@@ -45,7 +45,6 @@ namespace HduRemoteLab
         public int id { get; set; }
         public string kind { get; set; }
         public JArray experiments { get; set; }
-        public JObject user_experiment { get; set; }
         public string state { get; set; }
     }
     
@@ -61,8 +60,9 @@ namespace HduRemoteLab
     public class Docement
     {
         public string name;
-        public byte[] content;
+        public string content;
     }
+
     public class Slave
     {
         public int id;

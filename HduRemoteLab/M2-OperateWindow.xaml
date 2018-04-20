@@ -13,8 +13,9 @@
                 <Label x:Name="LabelController" Content="可用控制器选择" HorizontalAlignment="Left" Margin="26,36,0,0" VerticalAlignment="Top"/>
                 <ComboBox x:Name="ComboSlaves" HorizontalAlignment="Left" Margin="157,36,0,0" VerticalAlignment="Top" Width="120"  RenderTransformOrigin="0.492,3.109" SelectionChanged="ComboSalves_SelectionChanged"/>
                 <Label x:Name="LabelExperiment" Content="实验文件选择" HorizontalAlignment="Left" Margin="26,63,0,0" VerticalAlignment="Top"/>
-                <ComboBox x:Name="ComboExperiment" HorizontalAlignment="Left" Margin="157,67,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboExperiment_SelectionChanged"/>
+                <ComboBox x:Name="ComboExperiment" HorizontalAlignment="Left" Margin="157,67,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboExperiment_SelectionChanged" d:IsHidden="True"/>
                 <Button x:Name="BtnUpload" Content="上传实验到云端" HorizontalAlignment="Left" Margin="89,5,0,72" Width="108" Click="BtnUpload_Click" />
+                <TextBlock x:Name="TextExperiment" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="157,67,0,0" Width="120" Height="21"/>
             </Grid>
         </GroupBox>
         <GroupBox x:Name="GroupOperate" Header="实验操作" HorizontalAlignment="Left" Height="273" Margin="10,139,0,0" VerticalAlignment="Top" Width="322">
