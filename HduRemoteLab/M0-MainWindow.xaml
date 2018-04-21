@@ -31,15 +31,15 @@
                 </Grid>
             </GroupBox>
         </Grid>
-        <Grid x:Name="GridHigh" HorizontalAlignment="Left" Height="340" Margin="20,36,0,0" VerticalAlignment="Top" Width="244" Grid.ColumnSpan="2">
-            <GroupBox x:Name="GroupAcount" Header="账户操作" HorizontalAlignment="Left" Height="90" Margin="-9,10,0,0" VerticalAlignment="Top" Width="239" >
-                <Grid x:Name="GridAccount" HorizontalAlignment="Left" Margin="-2,-9,0,0" Width="219" Height="70" VerticalAlignment="Top">
+        <Grid x:Name="GridHigh" HorizontalAlignment="Left" Height="340" Margin="7,30,0,0" VerticalAlignment="Top" Width="249" Grid.ColumnSpan="2">
+            <GroupBox x:Name="GroupAcount" Header="账户操作" HorizontalAlignment="Left" Height="90" Margin="1,10,0,0" VerticalAlignment="Top" Width="239" >
+                <Grid x:Name="GridAccount" HorizontalAlignment="Left" Margin="8,-2,-0.333,0" Width="219" Height="70" VerticalAlignment="Top">
                     <TextBlock x:Name="TextAccount" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.818"><Run Text="当前"/><Run Text="账户名称"/></TextBlock>
                     <Button x:Name="BtnPwd"    Content="修改密码" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="89" Height="20" RenderTransformOrigin="0.461,1.267" Click="BtnPwd_Click"/>
                     <Button x:Name="BtnAccount" Content="切换账户" HorizontalAlignment="Left" Margin="117,36,0,0" VerticalAlignment="Top" Width="92" RenderTransformOrigin="0.493,0.8" Click="BtnAccount_Click"/>
                 </Grid>
             </GroupBox>
-            <GroupBox x:Name="GroupOperate" Header="高级操作" HorizontalAlignment="Left" Height="217" Margin="-7,113,0,0" VerticalAlignment="Top" Width="237">
+            <GroupBox x:Name="GroupOperate" Header="高级操作" HorizontalAlignment="Left" Height="217" Margin="2,110,0,0" VerticalAlignment="Top" Width="237">
                 <Grid x:Name="GridOperate" HorizontalAlignment="Left" Height="181" Margin="0,10,-2.333,0" VerticalAlignment="Top" Width="227">
                     <Button x:Name="BtnLogView" Content="日志查看" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="59,37,0,0" Height="31" Click="BtnLogView_Click"/>
                     <Button x:Name="BtnOperate" Content="远程操作" HorizontalAlignment="Left" Margin="59,119,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.178,0.8" Height="29" Click="BtnOperate_Click"/>

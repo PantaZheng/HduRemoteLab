@@ -203,6 +203,7 @@ namespace HduRemoteLab
 
         private void BtnDownload_Click(object sender, RoutedEventArgs e)
         {
+            /*
             mode = "operate";
             wsOperate = new WebSocket("ws://" + server + "/mode=" + mode);
             wsOperate.OnMessage += (s, ee) => {
@@ -227,7 +228,8 @@ namespace HduRemoteLab
                 slave = selectSlave,
                 experiment = selectExperiment
             };
-            wsOperate.Send(JsonConvert.SerializeObject(data));
+            wsOperate.Send(JsonConvert.SerializeObject(data));*/
+            System.Diagnostics.Process.Start("https://github.com/RaphaelZheng/BackendPyHRL/blob/master/RaspberryPi/hc-sr04_Rasp.md");
         }
 
         

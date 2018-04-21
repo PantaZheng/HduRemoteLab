@@ -21,7 +21,7 @@
         <GroupBox x:Name="GroupOperate" Header="实验操作" HorizontalAlignment="Left" Height="273" Margin="10,139,0,0" VerticalAlignment="Top" Width="322">
             <Grid x:Name="GridOperate" HorizontalAlignment="Left" Height="264" Margin="10,-1,-2,-11.667" VerticalAlignment="Top" Width="302">
                 <Button x:Name="BtnStop" Content="关闭远程实验" HorizontalAlignment="Left" Margin="165,51,0,0" VerticalAlignment="Top" Width="118" Click="BtnStop_Click"/>
-                <Button x:Name="BtnDownload" Content="例程及说明下载" HorizontalAlignment="Left" Margin="81,10,0,0" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.603,1.156" Click="BtnDownload_Click"/>
+                <Button x:Name="BtnDownload" Content="实验说明/例程" HorizontalAlignment="Left" Margin="81,10,0,0" VerticalAlignment="Top" Width="122" RenderTransformOrigin="0.603,1.156" Click="BtnDownload_Click"/>
                 <Button x:Name="BtnStart" Content="开启远程实验" HorizontalAlignment="Left" Margin="17,51,0,0" VerticalAlignment="Top" Width="122" Click="BtnStart_Click"/>
                 <Grid x:Name="GridModbus" HorizontalAlignment="Left" Height="179" Margin="17,75,0,0" VerticalAlignment="Top" Width="266">
                     <Grid.ColumnDefinitions>
