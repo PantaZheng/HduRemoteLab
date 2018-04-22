@@ -32,7 +32,7 @@
                     <Label x:Name="LabelSlave" Content="从机地址" HorizontalAlignment="Left" Margin="40,6,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <TextBlock x:Name="TextSlave" HorizontalAlignment="Left" Margin="56.667,10,0,0" TextWrapping="Wrap" Text="Slave" VerticalAlignment="Top" Grid.Column="1"/>
                     <Label Content="寄存器初始地址" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <Button x:Name="BtnExcute" Content="执行Modbus指令" HorizontalAlignment="Left" Margin="72,155,0,0" VerticalAlignment="Top" Width="98" Grid.ColumnSpan="2"/>
+                    <Button x:Name="BtnExcute" Content="执行Modbus指令" HorizontalAlignment="Left" Margin="72,155,0,0" VerticalAlignment="Top" Width="98" Grid.ColumnSpan="2" Click="BtnExcute_Click"/>
                     <ComboBox x:Name="ComboFuctionCode" HorizontalAlignment="Left" Margin="55.667,42,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
                     <Label x:Name="LabelQuantityX" Content="寄存器数量或者&#xA;          线圈数量" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="112" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="TextStartingAddress" HorizontalAlignment="Left" Height="22" Margin="56.667,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>

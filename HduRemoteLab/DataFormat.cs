@@ -98,7 +98,7 @@ namespace HduRemoteLab
     {
         public int function_code { get; set; }
         public int starting_address { get; set; }
-        public int quantity_x { get; set; }
+        public int quantity_of_x { get; set; }
     }
 
     //远程控制Modbus指令
@@ -108,6 +108,7 @@ namespace HduRemoteLab
         public string id { get; set; }
         public Slave slave { get; set; }
         public ModbusMes modbus { get; set; }
+        public string experiment { get; set; }
     }
    //远程控制停止
     public class StopData
@@ -139,5 +140,11 @@ namespace HduRemoteLab
         public string code { get; set; }
         public string mes { get; set; }
         public JArray data { get; set; }
+    }
+
+    public class Funcnction_id
+    {
+        public string function { get; set; }
+        public int id { get; set; }
     }
 }

@@ -40,9 +40,20 @@ namespace HduRemoteLab
         public Slave selectSlave;//选中从机简单类-发送往服务器
         public string selectExperiment;//选中实验
         public Docement uploadDocement;//上传文件
+        public ModbusMes selectModbus;//选中的modbus指令
+
         public string realWay;
+        public List<Funcnction_id> functionCode =new List<Funcnction_id>{
+            new Funcnction_id{ function="READ_COILS",id=1},
+            new Funcnction_id{ function="READ_DISCRETE_INPUTS ",id=2},
+            new Funcnction_id{function="READ_HOLDING_REGISTERS",id=3},
+            new Funcnction_id{function="READ_INPUT_REGISTERS",id=4},
+            };
+        
+
         public OperateWindow(string server,string id)
         {
+            
             this.server = server;
             this.account_id = id;
             InitializeComponent();
@@ -203,7 +214,6 @@ namespace HduRemoteLab
 
         private void BtnDownload_Click(object sender, RoutedEventArgs e)
         {
-            /*
             mode = "operate";
             wsOperate = new WebSocket("ws://" + server + "/mode=" + mode);
             wsOperate.OnMessage += (s, ee) => {
@@ -228,7 +238,7 @@ namespace HduRemoteLab
                 slave = selectSlave,
                 experiment = selectExperiment
             };
-            wsOperate.Send(JsonConvert.SerializeObject(data));*/
+            wsOperate.Send(JsonConvert.SerializeObject(data));
             System.Diagnostics.Process.Start("https://github.com/RaphaelZheng/BackendPyHRL/blob/master/RaspberryPi/hc-sr04_Rasp.md");
         }
 
@@ -243,6 +253,9 @@ namespace HduRemoteLab
                 BtnStop.IsEnabled = true;
                 BtnStart.IsEnabled = false;
                 BtnDownload.IsEnabled = false;
+                ComboFuctionCode.ItemsSource = functionCode;
+                ComboFuctionCode.DisplayMemberPath = "function";
+
             }));
             mode = "operate";
             wsOperate = new WebSocket("ws://" + server + "/mode=" + mode);
@@ -267,6 +280,41 @@ namespace HduRemoteLab
                 id = account_id,
                 slave = selectSlave,
                 experiment = selectExperiment
+            };
+            wsOperate.Send(JsonConvert.SerializeObject(data));
+        }
+
+        private void BtnExcute_Click(object sender, RoutedEventArgs e)
+        {
+            selectModbus = new ModbusMes {
+                function_code = functionCode[ComboFuctionCode.SelectedIndex].id,
+                starting_address = int.Parse(TextStartingAddress.Text),
+                quantity_of_x = int.Parse(TextQuantityX.Text)
+            };
+            mode = "operate";
+            wsOperate = new WebSocket("ws://" + server + "/mode=" + mode);
+            wsOperate.OnMessage += (s, ee) => {
+                var recData = JsonConvert.DeserializeObject<BasicData>(ee.Data);
+                if (recData.code == "403")
+                {
+                    AppendLog(recData.mes);
+                }
+                else
+                {
+                    AppendLog("错误代码：" + recData.code + ",错误信息：" + recData.mes);
+                }
+            };
+            wsOperate.OnClose += (s, ee) => {
+                // AppendLog("服务器通讯结束!");
+            };
+            wsOperate.Connect();
+            
+            var data = new ModbusData
+            {
+                id = account_id,
+                slave = selectSlave,
+                experiment = selectExperiment,
+                modbus=selectModbus
             };
             wsOperate.Send(JsonConvert.SerializeObject(data));
         }
@@ -338,6 +386,6 @@ namespace HduRemoteLab
             activateGrid();
         }
 
-       
+        
     }
 }
