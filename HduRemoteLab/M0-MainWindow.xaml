@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="TextTitle" HorizontalAlignment="Left" TextWrapping="Wrap" Text="远程实验平台" VerticalAlignment="Top" RenderTransformOrigin="2.657,6.826" Margin="15,9,0,0" Height="39" Width="144" FontSize="22" Grid.ColumnSpan="2"/>
         <ListBox x:Name="ListLog" Height="353" VerticalAlignment="Top" HorizontalAlignment="Left" Width="360" Margin="257,9,0,0" Grid.ColumnSpan="2" />
-        <Grid x:Name="GridBasic" HorizontalAlignment="Left" Height="317" VerticalAlignment="Top" Width="239" Margin="10,37,0,0" Grid.ColumnSpan="2" d:IsHidden="True">
+        <Grid x:Name="GridBasic" HorizontalAlignment="Left" Height="317" VerticalAlignment="Top" Width="239" Margin="10,37,0,0" Grid.ColumnSpan="2">
             <GroupBox x:Name="GroupLogin" Header="登录" HorizontalAlignment="Left" Margin="4,4,0,-4" VerticalAlignment="Top" Height="317" Width="228">
                 <Grid x:Name="GridLogin" Margin="-2,-2,-2,-22.333" HorizontalAlignment="Left" Width="220">
                     <Grid.ColumnDefinitions>
@@ -31,7 +31,7 @@
                 </Grid>
             </GroupBox>
         </Grid>
-        <Grid x:Name="GridHigh" HorizontalAlignment="Left" Height="340" Margin="7,30,0,0" VerticalAlignment="Top" Width="249" Grid.ColumnSpan="2">
+        <Grid x:Name="GridHigh" HorizontalAlignment="Left" Height="340" Margin="7,30,0,0" VerticalAlignment="Top" Width="249" Grid.ColumnSpan="2" d:IsHidden="True">
             <GroupBox x:Name="GroupAcount" Header="账户操作" HorizontalAlignment="Left" Height="90" Margin="1,10,0,0" VerticalAlignment="Top" Width="239" >
                 <Grid x:Name="GridAccount" HorizontalAlignment="Left" Margin="8,-2,-0.333,0" Width="219" Height="70" VerticalAlignment="Top">
                     <TextBlock x:Name="TextAccount" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.183,0.818"><Run Text="当前"/><Run Text="账户名称"/></TextBlock>
